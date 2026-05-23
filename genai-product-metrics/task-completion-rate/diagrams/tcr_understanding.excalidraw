@@ -1,0 +1,626 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "title-bg",
+      "type": "rectangle",
+      "x": 40, "y": 20, "width": 1400, "height": 70,
+      "backgroundColor": "#0F6E56", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 1, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "title-text",
+      "type": "text",
+      "x": 60, "y": 38, "width": 1360, "height": 36,
+      "text": "Task Completion Rate (TCR) — How a PM Thinks About It",
+      "fontSize": 28, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "subtitle",
+      "type": "text",
+      "x": 60, "y": 100, "width": 1360, "height": 24,
+      "text": "Real story: MakeMyTrip AI Agent  •  3 Failure Modes  •  The PM Fix",
+      "fontSize": 16, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#5F5E5A", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "formula-bg",
+      "type": "rectangle",
+      "x": 440, "y": 140, "width": 600, "height": 90,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#1D9E75",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "formula-text",
+      "type": "text",
+      "x": 460, "y": 155, "width": 560, "height": 60,
+      "text": "TCR  =  Tasks completed WITHOUT human fallback\n                 ─────────────────────────────────────\n                           Total tasks attempted",
+      "fontSize": 16, "fontFamily": 3, "textAlign": "center",
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "bench-label",
+      "type": "text",
+      "x": 40, "y": 255, "width": 200, "height": 24,
+      "text": "Industry benchmarks",
+      "fontSize": 16, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#444441", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "b1",
+      "type": "rectangle",
+      "x": 40, "y": 282, "width": 200, "height": 70,
+      "backgroundColor": "#FCEBEB", "strokeColor": "#A32D2D",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "b1t",
+      "type": "text",
+      "x": 50, "y": 295, "width": 180, "height": 44,
+      "text": "Below 70%\nAI costs more than it saves",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#A32D2D", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "b2",
+      "type": "rectangle",
+      "x": 260, "y": 282, "width": 200, "height": 70,
+      "backgroundColor": "#FAEEDA", "strokeColor": "#854F0B",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "b2t",
+      "type": "text",
+      "x": 270, "y": 295, "width": 180, "height": 44,
+      "text": "80% baseline\nPM interview benchmark",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#854F0B", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "b3",
+      "type": "rectangle",
+      "x": 480, "y": 282, "width": 200, "height": 70,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "b3t",
+      "type": "text",
+      "x": 490, "y": 295, "width": 180, "height": 44,
+      "text": "90%+\nProduction-grade target",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "sep1",
+      "type": "line",
+      "x": 40, "y": 380, "width": 1400, "height": 0,
+      "strokeColor": "#D3D1C7", "strokeWidth": 1.5, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[1400,0]]
+    },
+
+    {
+      "id": "flow-label",
+      "type": "text",
+      "x": 40, "y": 395, "width": 500, "height": 28,
+      "text": "What happens when a customer talks to the AI — the real flow",
+      "fontSize": 18, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#1A1A1A", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "cust",
+      "type": "rectangle",
+      "x": 40, "y": 440, "width": 160, "height": 70,
+      "backgroundColor": "#E6F1FB", "strokeColor": "#185FA5",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "cust-t",
+      "type": "text",
+      "x": 50, "y": 455, "width": 140, "height": 40,
+      "text": "Customer\nsends request",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#185FA5", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "arr1",
+      "type": "arrow",
+      "x": 200, "y": 475, "width": 80, "height": 0,
+      "strokeColor": "#888780", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[80,0]],
+      "endArrowhead": "arrow"
+    },
+
+    {
+      "id": "ai",
+      "type": "rectangle",
+      "x": 280, "y": 440, "width": 160, "height": 70,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "ai-t",
+      "type": "text",
+      "x": 290, "y": 455, "width": 140, "height": 40,
+      "text": "AI Agent\nprocesses task",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "arr2",
+      "type": "arrow",
+      "x": 440, "y": 475, "width": 80, "height": 0,
+      "strokeColor": "#888780", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[80,0]],
+      "endArrowhead": "arrow"
+    },
+
+    {
+      "id": "verify",
+      "type": "diamond",
+      "x": 520, "y": 430, "width": 180, "height": 90,
+      "backgroundColor": "#FAEEDA", "strokeColor": "#854F0B",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "verify-t",
+      "type": "text",
+      "x": 535, "y": 460, "width": 150, "height": 30,
+      "text": "Outcome verified?",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#854F0B", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "arr-yes",
+      "type": "arrow",
+      "x": 700, "y": 475, "width": 100, "height": 0,
+      "strokeColor": "#1D9E75", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[100,0]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "id": "yes-lbl",
+      "type": "text",
+      "x": 720, "y": 455, "width": 60, "height": 20,
+      "text": "YES ✓",
+      "fontSize": 13, "fontFamily": 1,
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "done",
+      "type": "rectangle",
+      "x": 800, "y": 440, "width": 160, "height": 70,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "done-t",
+      "type": "text",
+      "x": 810, "y": 455, "width": 140, "height": 40,
+      "text": "COMPLETED ✓\ncounts toward TCR",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "arr-no",
+      "type": "arrow",
+      "x": 610, "y": 520, "width": 0, "height": 80,
+      "strokeColor": "#A32D2D", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[0,80]],
+      "endArrowhead": "arrow"
+    },
+    {
+      "id": "no-lbl",
+      "type": "text",
+      "x": 620, "y": 545, "width": 60, "height": 20,
+      "text": "NO ✗",
+      "fontSize": 13, "fontFamily": 1,
+      "strokeColor": "#A32D2D", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "fallback",
+      "type": "rectangle",
+      "x": 520, "y": 600, "width": 180, "height": 70,
+      "backgroundColor": "#FCEBEB", "strokeColor": "#A32D2D",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "fallback-t",
+      "type": "text",
+      "x": 530, "y": 610, "width": 160, "height": 50,
+      "text": "FALLBACK ✗\nhuman steps in\ncounts against TCR",
+      "fontSize": 13, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#A32D2D", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "fallback-types-bg",
+      "type": "rectangle",
+      "x": 730, "y": 590, "width": 380, "height": 100,
+      "backgroundColor": "#FCEBEB", "strokeColor": "#A32D2D",
+      "fillStyle": "solid", "strokeWidth": 1, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "fallback-types-label",
+      "type": "text",
+      "x": 740, "y": 598, "width": 360, "height": 20,
+      "text": "Valid fallback states (all must be tracked):",
+      "fontSize": 13, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#A32D2D", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "fallback-types",
+      "type": "text",
+      "x": 740, "y": 620, "width": 360, "height": 65,
+      "text": "human_override  •  timeout  •  low_confidence\nerror  •  customer_abandoned\n\nAnything not explicitly a success = fallback",
+      "fontSize": 13, "fontFamily": 3, "textAlign": "left",
+      "strokeColor": "#791F1F", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "sep2",
+      "type": "line",
+      "x": 40, "y": 720, "width": 1400, "height": 0,
+      "strokeColor": "#D3D1C7", "strokeWidth": 1.5, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[1400,0]]
+    },
+
+    {
+      "id": "breaks-label",
+      "type": "text",
+      "x": 40, "y": 736, "width": 700, "height": 28,
+      "text": "3 Ways TCR Breaks in Production — Real MakeMyTrip Scenario",
+      "fontSize": 18, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#1A1A1A", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "br1-bg",
+      "type": "rectangle",
+      "x": 40, "y": 776, "width": 430, "height": 280,
+      "backgroundColor": "#ffffff", "strokeColor": "#A32D2D",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "br1-header",
+      "type": "rectangle",
+      "x": 40, "y": 776, "width": 430, "height": 38,
+      "backgroundColor": "#A32D2D", "strokeColor": "#A32D2D",
+      "fillStyle": "solid", "strokeWidth": 1, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "br1-title",
+      "type": "text",
+      "x": 50, "y": 786, "width": 410, "height": 20,
+      "text": "Break #1 — Metric Gaming (AI lies about success)",
+      "fontSize": 15, "fontFamily": 1, "fontStyle": 1, "textAlign": "center",
+      "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "br1-body",
+      "type": "text",
+      "x": 56, "y": 824, "width": 408, "height": 220,
+      "text": "What happens:\nRahul asks AI to cancel flight #4821.\nAI says \"Done! Refund in 5-7 days.\"\n\nReality:\nCancellation API failed silently.\nBooking still active in database.\nRahul finds out at the airport.\n\nOn dashboard:\nTCR shows 95% ← fake\n\nThe fix:\nCheck the database AFTER the AI\nclaims success. Did booking status\nactually change to CANCELLED?\nDon't trust the AI's own report.",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "left",
+      "strokeColor": "#444441", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "br2-bg",
+      "type": "rectangle",
+      "x": 490, "y": 776, "width": 430, "height": 280,
+      "backgroundColor": "#ffffff", "strokeColor": "#854F0B",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "br2-header",
+      "type": "rectangle",
+      "x": 490, "y": 776, "width": 430, "height": 38,
+      "backgroundColor": "#854F0B", "strokeColor": "#854F0B",
+      "fillStyle": "solid", "strokeWidth": 1, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "br2-title",
+      "type": "text",
+      "x": 500, "y": 786, "width": 410, "height": 20,
+      "text": "Break #2 — Denominator Trick (cherry-picked tasks)",
+      "fontSize": 15, "fontFamily": 1, "fontStyle": 1, "textAlign": "center",
+      "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "br2-body",
+      "type": "text",
+      "x": 506, "y": 824, "width": 408, "height": 220,
+      "text": "What happens:\nEngineer quietly changes routing:\nOnly EASY tasks go to AI.\nHard tasks (cancellations, disputes)\npre-routed to humans directly.\n\nOn dashboard:\nTCR shows 94% ← technically true\nbut measured on wrong population\n\nReality:\n1,400 hard tasks never attempted.\nHumans still doing all the hard work.\nROI savings on slide deck are fake.\n\nThe fix:\nMeasure TCR on ALL requests,\nnot just the ones AI was given.",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "left",
+      "strokeColor": "#444441", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "br3-bg",
+      "type": "rectangle",
+      "x": 940, "y": 776, "width": 500, "height": 280,
+      "backgroundColor": "#ffffff", "strokeColor": "#185FA5",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "br3-header",
+      "type": "rectangle",
+      "x": 940, "y": 776, "width": 500, "height": 38,
+      "backgroundColor": "#185FA5", "strokeColor": "#185FA5",
+      "fillStyle": "solid", "strokeWidth": 1, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "br3-title",
+      "type": "text",
+      "x": 950, "y": 786, "width": 480, "height": 20,
+      "text": "Break #3 — Ghost Completions (timeouts counted as success)",
+      "fontSize": 15, "fontFamily": 1, "fontStyle": 1, "textAlign": "center",
+      "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "br3-body",
+      "type": "text",
+      "x": 956, "y": 824, "width": 478, "height": 220,
+      "text": "What happens:\nDiwali peak traffic. AI gets overwhelmed.\nAPI response takes 31 seconds.\nTimeout threshold is 30 seconds.\nConnection drops. No status set.\n\nCode logic (the bug):\nif status NOT IN [\"human_override\"]:\n    count as completed  ← WRONG\n\nResult:\n800 timeout tasks = 800 fake completions\nReal TCR: 68%. Dashboard shows: 84%.\n\nThe fix:\nName every failure mode explicitly.\nhuman_override, timeout, error,\nlow_confidence, customer_abandoned.\nSilence = fallback, not success.",
+      "fontSize": 14, "fontFamily": 1, "textAlign": "left",
+      "strokeColor": "#444441", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "sep3",
+      "type": "line",
+      "x": 40, "y": 1080, "width": 1400, "height": 0,
+      "strokeColor": "#D3D1C7", "strokeWidth": 1.5, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[1400,0]]
+    },
+
+    {
+      "id": "pm-label",
+      "type": "text",
+      "x": 40, "y": 1096, "width": 700, "height": 28,
+      "text": "How the PM (Priya) uses TCR — the right way",
+      "fontSize": 18, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#1A1A1A", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "pm1",
+      "type": "rectangle",
+      "x": 40, "y": 1136, "width": 320, "height": 130,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "pm1-n",
+      "type": "text",
+      "x": 50, "y": 1143, "width": 300, "height": 24,
+      "text": "Step 1 — Segment, never aggregate",
+      "fontSize": 14, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "pm1-b",
+      "type": "text",
+      "x": 50, "y": 1172, "width": 300, "height": 88,
+      "text": "FAQ answers:     91% ✓\nFlight booking:  79% ⚠\nCancellations:   58% ✗\n\nOverall = 82% looks fine.\nCancellations = crisis. Fix that first.",
+      "fontSize": 13, "fontFamily": 3, "textAlign": "left",
+      "strokeColor": "#085041", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "pm-arr1",
+      "type": "arrow",
+      "x": 360, "y": 1201, "width": 60, "height": 0,
+      "strokeColor": "#888780", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[60,0]],
+      "endArrowhead": "arrow"
+    },
+
+    {
+      "id": "pm2",
+      "type": "rectangle",
+      "x": 420, "y": 1136, "width": 320, "height": 130,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "pm2-n",
+      "type": "text",
+      "x": 430, "y": 1143, "width": 300, "height": 24,
+      "text": "Step 2 — Risk-stratified thresholds",
+      "fontSize": 14, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "pm2-b",
+      "type": "text",
+      "x": 430, "y": 1172, "width": 300, "height": 88,
+      "text": "Flight booking:  need 90%+\n(irreversible, high ₹ risk)\n\nCancellations:   need 85%+\n\nFAQ answers:     70% is fine\n(customer just re-asks)",
+      "fontSize": 13, "fontFamily": 3, "textAlign": "left",
+      "strokeColor": "#085041", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "pm-arr2",
+      "type": "arrow",
+      "x": 740, "y": 1201, "width": 60, "height": 0,
+      "strokeColor": "#888780", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[60,0]],
+      "endArrowhead": "arrow"
+    },
+
+    {
+      "id": "pm3",
+      "type": "rectangle",
+      "x": 800, "y": 1136, "width": 340, "height": 130,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "pm3-n",
+      "type": "text",
+      "x": 810, "y": 1143, "width": 320, "height": 24,
+      "text": "Step 3 — Translate to money",
+      "fontSize": 14, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "pm3-b",
+      "type": "text",
+      "x": 810, "y": 1172, "width": 320, "height": 88,
+      "text": "10,000 tasks/day  ₹200/agent task\n\nTCR 70% → ₹6,00,000/day\nTCR 80% → ₹4,00,000/day\nTCR 90% → ₹2,00,000/day\n\nEvery 10% lift = ₹2L saved per day",
+      "fontSize": 13, "fontFamily": 3, "textAlign": "left",
+      "strokeColor": "#085041", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "pm-arr3",
+      "type": "arrow",
+      "x": 1140, "y": 1201, "width": 60, "height": 0,
+      "strokeColor": "#888780", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[60,0]],
+      "endArrowhead": "arrow"
+    },
+
+    {
+      "id": "pm4",
+      "type": "rectangle",
+      "x": 1200, "y": 1136, "width": 240, "height": 130,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "pm4-n",
+      "type": "text",
+      "x": 1210, "y": 1143, "width": 220, "height": 24,
+      "text": "Step 4 — Watch weekly",
+      "fontSize": 14, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "pm4-b",
+      "type": "text",
+      "x": 1210, "y": 1172, "width": 220, "height": 88,
+      "text": "Alert if any category\ndrops 3%+ week-over-week\n\nDon't wait for quarterly\nreview. Catch it early.\nCustomers feel it in week 1.",
+      "fontSize": 13, "fontFamily": 1, "textAlign": "left",
+      "strokeColor": "#085041", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "sep4",
+      "type": "line",
+      "x": 40, "y": 1296, "width": 1400, "height": 0,
+      "strokeColor": "#D3D1C7", "strokeWidth": 1.5, "roughness": 0, "opacity": 100,
+      "points": [[0,0],[1400,0]]
+    },
+
+    {
+      "id": "interview-bg",
+      "type": "rectangle",
+      "x": 40, "y": 1310, "width": 1400, "height": 90,
+      "backgroundColor": "#E1F5EE", "strokeColor": "#0F6E56",
+      "fillStyle": "solid", "strokeWidth": 2, "roughness": 0, "opacity": 100,
+      "roundness": {"type": 3}
+    },
+    {
+      "id": "interview-label",
+      "type": "text",
+      "x": 60, "y": 1318, "width": 300, "height": 22,
+      "text": "Interview answer that gets you hired:",
+      "fontSize": 14, "fontFamily": 1, "fontStyle": 1,
+      "strokeColor": "#0F6E56", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+    {
+      "id": "interview-text",
+      "type": "text",
+      "x": 60, "y": 1344, "width": 1360, "height": 50,
+      "text": "\"I segment TCR by task category and risk level, set different thresholds per category, and alert when any segment drops 3–5% week-over-week.\nAggregate TCR is a lagging indicator. Segmented, threshold-checked TCR is an early warning system.\"",
+      "fontSize": 15, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#085041", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    },
+
+    {
+      "id": "footer",
+      "type": "text",
+      "x": 40, "y": 1416, "width": 1360, "height": 20,
+      "text": "Builder Loop: Learn → Build → Break → Fix → Explain → Publish  |  github.com/YOUR_USERNAME/tcr-ai-metrics",
+      "fontSize": 13, "fontFamily": 1, "textAlign": "center",
+      "strokeColor": "#888780", "backgroundColor": "transparent", "fillStyle": "solid",
+      "roughness": 0, "opacity": 100
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#f8f9fa",
+    "gridSize": null
+  },
+  "files": {}
+}
