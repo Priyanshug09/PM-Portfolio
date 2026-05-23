@@ -1,5 +1,7 @@
 # Hallucination Rate in GenAI Products
 
+🔗 Live Demo: https://priyanshug09.github.io/PM-Portfolio/genai-product-metrics/hallucination-rate/
+
 ## 1. Concept
 
 Hallucination rate is the percentage of AI-generated answers that are wrong, unsupported, fabricated, or misleading.
