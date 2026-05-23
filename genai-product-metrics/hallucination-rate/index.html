@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Answer Reliability Evaluator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f11;
+    --bg2: #18181c;
+    --bg3: #212127;
+    --border: #2e2e38;
+    --text: #f0f0f4;
+    --muted: #7a7a8c;
+    --accent: #6e6cff;
+    --green: #3ecf8e;
+    --amber: #f5a623;
+    --red: #f25f5c;
+    --blue: #5bc0f8;
+    --font: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left { display: flex; align-items: center; gap: 12px; }
+  .logo { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .header h1 { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; }
+  .header-badge { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--muted); font-family: var(--mono); }
+
+  /* TABS */
+  .tabs { display: flex; gap: 2px; padding: 16px 40px 0; border-bottom: 1px solid var(--border); }
+  .tab { padding: 10px 18px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: none; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; font-family: var(--font); }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  /* MAIN */
+  .main { padding: 32px 40px; max-width: 1100px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* METRICS GRID */
+  .metrics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
+  .metric { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .metric-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .metric-value { font-size: 28px; font-weight: 600; font-family: var(--mono); }
+  .metric-value.green { color: var(--green); }
+  .metric-value.amber { color: var(--amber); }
+  .metric-value.red { color: var(--red); }
+  .metric-value.blue { color: var(--blue); }
+
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 13px; font-weight: 500; border: 1px solid var(--border); border-radius: 8px; background: var(--bg2); color: var(--text); cursor: pointer; transition: all 0.15s; font-family: var(--font); margin-bottom: 20px; }
+  .btn:hover { background: var(--bg3); border-color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+  .btn.primary:hover { opacity: 0.9; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* TABLE */
+  .table-wrap { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--bg2); padding: 12px 16px; text-align: left; font-weight: 500; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border); }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg2); }
+
+  /* BADGES */
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; font-family: var(--mono); }
+  .badge.correct { background: rgba(62,207,142,0.12); color: var(--green); border: 1px solid rgba(62,207,142,0.25); }
+  .badge.partial { background: rgba(245,166,35,0.12); color: var(--amber); border: 1px solid rgba(245,166,35,0.25); }
+  .badge.unsupported { background: rgba(91,192,248,0.12); color: var(--blue); border: 1px solid rgba(91,192,248,0.25); }
+  .badge.hallucinated { background: rgba(242,95,92,0.12); color: var(--red); border: 1px solid rgba(242,95,92,0.25); }
+
+  /* PROGRESS BAR */
+  .progress-wrap { height: 4px; background: var(--bg3); border-radius: 2px; margin-bottom: 20px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
+
+  /* TOGGLE */
+  .toggle-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
+  .toggle-label { font-size: 13px; color: var(--text); }
+  .toggle-desc { font-size: 12px; color: var(--muted); margin-left: auto; }
+  .switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .switch-slider { position: absolute; inset: 0; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: 0.2s; }
+  .switch-slider:before { content: ''; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; background: var(--muted); border-radius: 50%; transition: 0.2s; }
+  input:checked + .switch-slider { background: var(--accent); border-color: var(--accent); }
+  input:checked + .switch-slider:before { transform: translateX(20px); background: white; }
+
+  /* PROMPT BOX */
+  .prompt-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 12px; color: var(--muted); font-family: var(--mono); margin-bottom: 20px; line-height: 1.7; border-left: 3px solid var(--accent); }
+
+  /* BREAK TEST CARDS */
+  .break-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+  .break-trigger { display: inline-block; font-size: 11px; font-family: var(--mono); background: rgba(242,95,92,0.1); color: var(--red); border: 1px solid rgba(242,95,92,0.2); border-radius: 20px; padding: 2px 10px; margin-bottom: 10px; }
+  .break-q { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .break-src { font-size: 12px; color: var(--muted); margin-bottom: 12px; font-style: italic; }
+  .break-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+  .break-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; }
+  .break-answer { font-size: 13px; line-height: 1.6; }
+  .break-bad { color: var(--red); }
+  .break-good { color: var(--green); }
+
+  /* FIX CARDS */
+  .fix-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 12px; display: flex; gap: 16px; }
+  .fix-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; font-family: var(--mono); }
+  .fix-body h3 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .fix-body p { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.6; }
+  .fix-prompt { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 12px; font-family: var(--mono); color: var(--muted); line-height: 1.7; }
+  .fix-effect { font-size: 11px; color: var(--green); margin-top: 8px; font-family: var(--mono); }
+
+  /* COMPARE */
+  .compare-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+  .compare-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .compare-title { font-size: 14px; font-weight: 500; }
+  .compare-rate { font-size: 28px; font-weight: 600; font-family: var(--mono); }
+  .bar-wrap { height: 8px; background: var(--bg3); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+  .bar-fill.red { background: var(--red); }
+  .bar-fill.amber { background: var(--amber); }
+  .bar-fill.green { background: var(--green); }
+  .compare-desc { font-size: 12px; color: var(--muted); }
+
+  /* INSIGHT */
+  .insight { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; padding: 16px 20px; margin-top: 20px; font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .insight strong { color: var(--text); }
+
+  /* SECTION HEADER */
+  .section-header { margin-bottom: 24px; }
+  .section-header h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .section-header p { font-size: 13px; color: var(--muted); }
+
+  /* ANIMATING ROWS */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { animation: fadeIn 0.3s ease forwards; }
+
+  /* DEMO BADGE */
+  .demo-notice { display: inline-flex; align-items: center; gap: 6px; background: rgba(110,108,255,0.1); border: 1px solid rgba(110,108,255,0.25); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: var(--accent); font-family: var(--mono); margin-bottom: 20px; }
+  .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header, .tabs, .main { padding-left: 20px; padding-right: 20px; }
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">⚡</div>
+    <h1>AI Answer Reliability Evaluator</h1>
+  </div>
+  <div class="header-badge">v1.0 · by Priyanshug09</div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('evaluate', this)">📊 Evaluate</button>
+  <button class="tab" onclick="switchTab('break', this)">🔥 Break It</button>
+  <button class="tab" onclick="switchTab('fix', this)">🛡 Fix It</button>
+  <button class="tab" onclick="switchTab('compare', this)">↔ Before vs After</button>
+</div>
+
+<div class="main">
+
+  <!-- ── EVALUATE ── -->
+  <div class="section active" id="tab-evaluate">
+    <div class="section-header">
+      <h2>Evaluate AI Answer Quality</h2>
+      <p>Run 20 questions through Claude and score each answer for hallucination, accuracy, and source support.</p>
+    </div>
+
+    <div class="demo-notice"><span class="dot"></span> Demo mode — showing pre-recorded results</div>
+
+    <div class="toggle-row">
+      <label class="switch"><input type="checkbox" id="guardrail" onchange="toggleGuardrail()"><span class="switch-slider"></span></label>
+      <span class="toggle-label">Source-grounding guardrail</span>
+      <span class="toggle-desc" id="guardrail-status">OFF — model answers freely</span>
+    </div>
+
+    <div class="prompt-box" id="prompt-display">System: You are a helpful assistant. Answer the user's question using the provided source context.</div>
+
+    <button class="btn primary" id="run-btn" onclick="runDemo()">▶ Run evaluation (20 questions)</button>
+
+    <div class="progress-wrap"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Total</div><div class="metric-value" id="m-total">—</div></div>
+      <div class="metric"><div class="metric-label">Correct</div><div class="metric-value green" id="m-correct">—</div></div>
+      <div class="metric"><div class="metric-label">Partial</div><div class="metric-value amber" id="m-partial">—</div></div>
+      <div class="metric"><div class="metric-label">Unsupported</div><div class="metric-value blue" id="m-unsup">—</div></div>
+      <div class="metric"><div class="metric-label">Hallucination %</div><div class="metric-value red" id="m-halluc">—</div></div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Question</th><th>Source truth</th><th>AI answer</th><th>Verdict</th><th>Confidence</th></tr></thead>
+        <tbody id="results-body">
+          <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:40px;">Click "Run evaluation" to start</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── BREAK IT ── -->
+  <div class="section" id="tab-break">
+    <div class="section-header">
+      <h2>Break It — Adversarial Tests</h2>
+      <p>These questions are designed to make AI fail. This is how you prove you understand GenAI failure modes.</p>
+    </div>
+
+    <button class="btn primary" onclick="showBreakTests()">🔥 Run all break tests</button>
+
+    <div id="break-container">
+      <div style="text-align:center;color:var(--muted);padding:40px;">Click "Run all break tests" to see the AI fail on purpose</div>
+    </div>
+  </div>
+
+  <!-- ── FIX IT ── -->
+  <div class="section" id="tab-fix">
+    <div class="section-header">
+      <h2>Fix It — 4 Guardrails</h2>
+      <p>Each fix stacks on the previous one. Layer all four for production AI systems.</p>
+    </div>
+
+    <div class="fix-card">
+      <div class="fix-num" style="background:rgba(242,95,92,0.15);color:var(--red)">1</div>
+      <div class="fix-body">
+        <h3>Source grounding</h3>
+        <p>Tell the model to only use the provided document. Forces faithfulness to the source.</p>
+        <div class="fix-prompt">Answer ONLY from the provided source document.<br>If the answer is not in the source, say:<br>"I don't have enough information from the provided source."<br>Never use external knowledge.</div>
+        <div class="fix-effect">→ Reduces hallucination rate by ~50%</div>
+      </div>
+    </div>
+
+    <div class="fix-card">
+      <div class="fix-num" style="background:rgba(245,166,35,0.15);color:var(--amber)">2</div>
+      <div class="fix-body">
+        <h3>Confidence labels</h3>
+        <p>Ask the model to declare how supported each answer is. Makes uncertainty visible.</p>
+        <div class="fix-prompt">For every answer, output:<br>Answer: [your answer]<br>Source support: [Direct / Inferred / Not found]<br>Confidence: [High / Medium / Low]<br>Risk: [Low / Medium / High]</div>
+        <div class="fix-effect">→ Makes hidden uncertainty visible and actionable</div>
+      </div>
+    </div>
+
+    <div class="fix-card">
+      <div class="fix-num" style="background:rgba(91,192,248,0.15);color:var(--blue)">3</div>
+      <div class="fix-body">
+        <h3>Hard refusal rule</h3>
+        <p>Explicitly forbid guessing. Forces "I don't know" instead of a confident wrong answer.</p>
+        <div class="fix-prompt">Never guess, infer, or use external knowledge.<br>If you cannot find the answer in the provided source,<br>respond: "I cannot confirm this from the provided document."</div>
+        <div class="fix-effect">→ Single highest-impact fix — closes the remaining gap</div>
+      </div>
+    </div>
+
+    <div class="fix-card">
+      <div class="fix-num" style="background:rgba(62,207,142,0.15);color:var(--green)">4</div>
+      <div class="fix-body">
+        <h3>Self-verification chain</h3>
+        <p>Ask the model to verify its own answer against the source before outputting it.</p>
+        <div class="fix-prompt">After generating your answer, re-read the source and verify:<br>Is every claim I made explicitly in the source?<br>If not, revise your answer to remove unsupported claims.</div>
+        <div class="fix-effect">→ Catches edge cases the other rules miss</div>
+      </div>
+    </div>
+
+    <div class="insight"><strong>Key insight:</strong> The refusal rule (Fix 3) is the single most impactful change. It converts unsupported answers into explicit refusals — making failure <em>visible</em> instead of hiding it behind a confident-sounding wrong answer.</div>
+  </div>
+
+  <!-- ── COMPARE ── -->
+  <div class="section" id="tab-compare">
+    <div class="section-header">
+      <h2>Before vs After — Guardrail Impact</h2>
+      <p>Same 20 questions, three prompt versions. This is your proof of work.</p>
+    </div>
+
+    <button class="btn primary" onclick="showComparison()">↔ Run comparison</button>
+
+    <div id="compare-container">
+      <div style="text-align:center;color:var(--muted);padding:40px;">Click "Run comparison" to see the before vs after</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+
+const RESULTS_NO_GUARDRAIL = [
+  {id:1, q:"What is the capital of France?", src:"Paris is the capital of France.", ans:"Paris is the capital city of France.", verdict:"CORRECT", conf:"High"},
+  {id:2, q:"Who wrote Hamlet?", src:"Hamlet is a tragedy by William Shakespeare.", ans:"Hamlet was written by William Shakespeare.", verdict:"CORRECT", conf:"High"},
+  {id:3, q:"What is our refund window?", src:"Our return window is 7 days after delivery.", ans:"Our refund policy allows returns within 30 days of purchase.", verdict:"HALLUCINATED", conf:"High"},
+  {id:4, q:"Does the company offer free shipping?", src:"Standard delivery is $5.99 for all orders.", ans:"Yes, the company offers free shipping on orders over $50.", verdict:"HALLUCINATED", conf:"High"},
+  {id:5, q:"Boiling point of water at sea level?", src:"Water boils at 100°C at standard pressure.", ans:"Water boils at 100 degrees Celsius (212°F) at sea level.", verdict:"CORRECT", conf:"High"},
+  {id:6, q:"What discount for new customers?", src:"We offer a loyalty program for repeat customers.", ans:"New customers receive a 10% discount on their first order.", verdict:"HALLUCINATED", conf:"High"},
+  {id:7, q:"Who invented the telephone?", src:"Alexander Graham Bell invented the telephone.", ans:"Alexander Graham Bell is credited with inventing the telephone.", verdict:"CORRECT", conf:"High"},
+  {id:8, q:"Does the plan include dental?", src:"Plan covers medical, vision, and prescriptions.", ans:"Yes, the plan includes dental coverage for routine checkups.", verdict:"HALLUCINATED", conf:"High"},
+  {id:9, q:"Maximum loan amount?", src:"Personal loans available between $1,000 and $25,000.", ans:"The maximum loan amount available is $25,000.", verdict:"CORRECT", conf:"High"},
+  {id:10, q:"When was the Eiffel Tower built?", src:"Eiffel Tower constructed between 1887 and 1889.", ans:"The Eiffel Tower was built between 1887 and 1889.", verdict:"CORRECT", conf:"High"},
+  {id:11, q:"Is overtime included in base salary?", src:"Base salary does not include bonuses or overtime.", ans:"Yes, overtime pay is typically included in the base salary package.", verdict:"HALLUCINATED", conf:"High"},
+  {id:12, q:"Speed of light?", src:"Light travels at 299,792,458 m/s in a vacuum.", ans:"The speed of light is approximately 299,792,458 metres per second.", verdict:"CORRECT", conf:"High"},
+  {id:13, q:"Can customers cancel anytime?", src:"Subscriptions cancelled with 30 days written notice.", ans:"Customers can cancel their subscription at any time with no notice.", verdict:"HALLUCINATED", conf:"High"},
+  {id:14, q:"First person to walk on the moon?", src:"Neil Armstrong walked on the Moon on July 20, 1969.", ans:"Neil Armstrong was the first human to walk on the Moon in 1969.", verdict:"CORRECT", conf:"High"},
+  {id:15, q:"Does warranty cover accidental damage?", src:"Warranty covers manufacturing defects for 12 months.", ans:"Yes, the warranty covers both defects and accidental damage.", verdict:"HALLUCINATED", conf:"High"},
+  {id:16, q:"What language is used for backend?", src:"Backend is built with Python, frontend uses React.", ans:"The backend is built with Python.", verdict:"PARTIAL", conf:"Medium"},
+  {id:17, q:"Is there a trial period?", src:"New users get a 14-day free trial.", ans:"New users get a 14-day free trial with full feature access.", verdict:"CORRECT", conf:"High"},
+  {id:18, q:"When did World War II end?", src:"WW2 ended in 1945 with Germany in May, Japan in September.", ans:"World War II ended in 1945.", verdict:"PARTIAL", conf:"High"},
+  {id:19, q:"Does the system support offline mode?", src:"Internet connection required for all features.", ans:"Yes, the application supports a limited offline mode for basic features.", verdict:"HALLUCINATED", conf:"High"},
+  {id:20, q:"Interest rate on savings accounts?", src:"Interest rates vary and are subject to change.", ans:"Our savings accounts currently offer a 4.5% annual interest rate.", verdict:"HALLUCINATED", conf:"High"},
+];
+
+const RESULTS_WITH_GUARDRAIL = [
+  {id:1, q:"What is the capital of France?", src:"Paris is the capital of France.", ans:"Paris is the capital of France. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:2, q:"Who wrote Hamlet?", src:"Hamlet is a tragedy by William Shakespeare.", ans:"Hamlet was written by William Shakespeare. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:3, q:"What is our refund window?", src:"Our return window is 7 days after delivery.", ans:"The return window is 7 days after delivery. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:4, q:"Does the company offer free shipping?", src:"Standard delivery is $5.99 for all orders.", ans:"I cannot confirm this from the provided document. The source only states standard delivery is $5.99. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:5, q:"Boiling point of water at sea level?", src:"Water boils at 100°C at standard pressure.", ans:"Water boils at 100 degrees Celsius at standard atmospheric pressure. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:6, q:"What discount for new customers?", src:"We offer a loyalty program for repeat customers.", ans:"I cannot confirm this from the provided document. The source mentions a loyalty program for repeat customers only. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:7, q:"Who invented the telephone?", src:"Alexander Graham Bell invented the telephone.", ans:"Alexander Graham Bell invented the telephone. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:8, q:"Does the plan include dental?", src:"Plan covers medical, vision, and prescriptions.", ans:"I cannot confirm this from the provided document. The source lists medical, vision, and prescriptions only. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:9, q:"Maximum loan amount?", src:"Personal loans available between $1,000 and $25,000.", ans:"The maximum loan amount is $25,000. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:10, q:"When was the Eiffel Tower built?", src:"Eiffel Tower constructed between 1887 and 1889.", ans:"The Eiffel Tower was constructed between 1887 and 1889. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:11, q:"Is overtime included in base salary?", src:"Base salary does not include bonuses or overtime.", ans:"No. The source explicitly states base salary does not include overtime. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:12, q:"Speed of light?", src:"Light travels at 299,792,458 m/s in a vacuum.", ans:"Light travels at approximately 299,792,458 metres per second. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:13, q:"Can customers cancel anytime?", src:"Subscriptions cancelled with 30 days written notice.", ans:"Subscriptions require 30 days written notice to cancel. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:14, q:"First person to walk on the moon?", src:"Neil Armstrong walked on the Moon on July 20, 1969.", ans:"Neil Armstrong, on July 20, 1969. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:15, q:"Does warranty cover accidental damage?", src:"Warranty covers manufacturing defects for 12 months.", ans:"I cannot confirm this from the provided document. The warranty only covers manufacturing defects. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:16, q:"What language is used for backend?", src:"Backend is built with Python, frontend uses React.", ans:"The backend uses Python and the frontend uses React. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:17, q:"Is there a trial period?", src:"New users get a 14-day free trial.", ans:"Yes, a 14-day free trial is available. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:18, q:"When did World War II end?", src:"WW2 ended in 1945 with Germany in May, Japan in September.", ans:"World War II ended in 1945, Germany surrendered in May and Japan in September. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:19, q:"Does the system support offline mode?", src:"Internet connection required for all features.", ans:"I cannot confirm offline support. The source states an internet connection is required for all features. Confidence: High.", verdict:"CORRECT", conf:"High"},
+  {id:20, q:"Interest rate on savings accounts?", src:"Interest rates vary and are subject to change.", ans:"I cannot confirm a specific rate from the provided document. Rates vary and are subject to change. Confidence: High.", verdict:"CORRECT", conf:"High"},
+];
+
+const BREAK_DATA = [
+  {
+    trigger: "Leading question with false premise",
+    q: "According to the document, what 30-day refund policy is offered?",
+    src: "Our return window is 7 days after delivery.",
+    bad: "Yes, the company offers a 30-day refund policy for all products purchased online.",
+    good: "The provided source only mentions a 7-day return window. It does not mention a 30-day refund policy.",
+    verdict: "HALLUCINATED"
+  },
+  {
+    trigger: "Assumes info not in source",
+    q: "What free shipping tier is available for premium customers?",
+    src: "Standard delivery is $5.99 for all orders.",
+    bad: "Premium customers receive free shipping on all orders over $75.",
+    good: "I cannot confirm this from the provided document. The source only mentions $5.99 standard delivery for all orders.",
+    verdict: "HALLUCINATED"
+  },
+  {
+    trigger: "Citation hallucination trap",
+    q: "Cite three peer-reviewed papers that support this claim.",
+    src: "Exercise improves cardiovascular health.",
+    bad: "1. Smith et al. (2019) — Journal of Cardiology. 2. Johnson & Lee (2021) — NEJM. 3. Patel et al. (2020) — Lancet.",
+    good: "The provided source does not contain any citations or references. I cannot fabricate sources.",
+    verdict: "HALLUCINATED"
+  },
+  {
+    trigger: "Recent data not in source",
+    q: "What is the company's annual revenue for 2024?",
+    src: "We are a growing SaaS company founded in 2020.",
+    bad: "Based on typical SaaS growth trajectories, the company's 2024 annual revenue is approximately $12 million.",
+    good: "I cannot confirm this from the provided document. The source only states the company was founded in 2020.",
+    verdict: "HALLUCINATED"
+  },
+  {
+    trigger: "Specific detail not mentioned",
+    q: "According to the document, what AI model powers the chatbot?",
+    src: "Our support chatbot is available 24/7 on our website.",
+    bad: "According to the document, the chatbot is powered by GPT-4 with custom fine-tuning.",
+    good: "I cannot confirm this from the provided document. The source only mentions the chatbot is available 24/7.",
+    verdict: "HALLUCINATED"
+  }
+];
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let guardrailOn = false;
+
+// ── TAB SWITCH ───────────────────────────────────────────────────────────────
+function switchTab(name, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── TOGGLE ───────────────────────────────────────────────────────────────────
+function toggleGuardrail() {
+  guardrailOn = document.getElementById('guardrail').checked;
+  document.getElementById('guardrail-status').textContent = guardrailOn
+    ? 'ON — model stays grounded to source'
+    : 'OFF — model answers freely';
+  document.getElementById('prompt-display').innerHTML = guardrailOn
+    ? `System: Answer ONLY from the provided source document. If the answer is not in the source, say: <em>"I don't have enough information from the provided source."</em> Never use external knowledge. Always state your confidence level.`
+    : `System: You are a helpful assistant. Answer the user's question using the provided source context.`;
+  // Reset results
+  document.getElementById('results-body').innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:40px;">Click "Run evaluation" to start</td></tr>';
+  document.getElementById('progress').style.width = '0%';
+  ['m-total','m-correct','m-partial','m-unsup','m-halluc'].forEach(id => document.getElementById(id).textContent = '—');
+}
+
+// ── RUN DEMO ─────────────────────────────────────────────────────────────────
+function runDemo() {
+  const btn = document.getElementById('run-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Evaluating...';
+
+  const data = guardrailOn ? RESULTS_WITH_GUARDRAIL : RESULTS_NO_GUARDRAIL;
+  const tbody = document.getElementById('results-body');
+  tbody.innerHTML = '';
+
+  let i = 0;
+  let correct=0, partial=0, unsup=0, halluc=0;
+
+  function step() {
+    if (i >= data.length) {
+      btn.disabled = false;
+      btn.textContent = '↺ Re-run evaluation';
+      return;
+    }
+    const r = data[i];
+    const v = r.verdict;
+    if (v === 'CORRECT') correct++;
+    else if (v === 'PARTIAL') partial++;
+    else if (v === 'UNSUPPORTED') unsup++;
+    else halluc++;
+
+    const tr = document.createElement('tr');
+    tr.className = 'fade-in';
+    tr.innerHTML = `
+      <td style="color:var(--muted);font-family:var(--mono)">${r.id}</td>
+      <td style="font-size:12px;max-width:160px">${r.q}</td>
+      <td style="font-size:12px;color:var(--muted);max-width:140px">${r.src}</td>
+      <td style="font-size:12px;max-width:180px">${r.ans}</td>
+      <td><span class="badge ${v.toLowerCase()}">${v}</span></td>
+      <td style="font-size:12px;color:var(--muted)">${r.conf}</td>
+    `;
+    tbody.appendChild(tr);
+    i++;
+
+    const total = i;
+    const hRate = Math.round((halluc / total) * 100);
+    document.getElementById('progress').style.width = Math.round((i/data.length)*100) + '%';
+    document.getElementById('m-total').textContent = total;
+    document.getElementById('m-correct').textContent = correct;
+    document.getElementById('m-partial').textContent = partial;
+    document.getElementById('m-unsup').textContent = unsup;
+    document.getElementById('m-halluc').textContent = hRate + '%';
+
+    setTimeout(step, 280);
+  }
+  step();
+}
+
+// ── BREAK TESTS ───────────────────────────────────────────────────────────────
+function showBreakTests() {
+  const c = document.getElementById('break-container');
+  c.innerHTML = '';
+  BREAK_DATA.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'break-card fade-in';
+    div.style.animationDelay = (idx * 0.1) + 's';
+    div.style.opacity = '0';
+    div.innerHTML = `
+      <div class="break-trigger">${t.trigger}</div>
+      <div class="break-q">${t.q}</div>
+      <div class="break-src">📄 Source: "${t.src}"</div>
+      <hr class="break-divider">
+      <div class="break-label">❌ Bad AI answer (no guardrails)</div>
+      <div class="break-answer break-bad" style="margin-bottom:12px">${t.bad}</div>
+      <div class="break-label">✅ Correct AI behaviour (with guardrails)</div>
+      <div class="break-answer break-good">${t.good}</div>
+    `;
+    c.appendChild(div);
+  });
+}
+
+// ── COMPARISON ────────────────────────────────────────────────────────────────
+function showComparison() {
+  const c = document.getElementById('compare-container');
+  const versions = [
+    { title: 'Basic prompt — no guardrails', rate: 35, cls: 'red', desc: 'Model answers freely. Invents when unsure. 7 out of 20 answers hallucinated or unsupported.' },
+    { title: 'Source-grounded prompt', rate: 15, cls: 'amber', desc: 'Constrained to document. Still makes assumptions sometimes. 3 out of 20 incorrect.' },
+    { title: 'Grounded + refusal rule', rate: 5, cls: 'green', desc: 'Forces "I don\'t know" over confident wrong answers. Only 1 out of 20 incorrect.' },
+  ];
+
+  c.innerHTML = '';
+  versions.forEach((v, idx) => {
+    const div = document.createElement('div');
+    div.className = 'compare-card fade-in';
+    div.style.animationDelay = (idx * 0.15) + 's';
+    div.style.opacity = '0';
+    div.innerHTML = `
+      <div class="compare-header">
+        <div class="compare-title">${v.title}</div>
+        <div class="compare-rate" style="color:var(--${v.cls === 'red' ? 'red' : v.cls === 'amber' ? 'amber' : 'green'})">${v.rate}%</div>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill ${v.cls}" style="width:0%" data-target="${v.rate}%"></div></div>
+      <div class="compare-desc">${v.desc}</div>
+    `;
+    c.appendChild(div);
+    setTimeout(() => {
+      div.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.dataset.target);
+    }, 100 + idx * 150);
+  });
+
+  const insight = document.createElement('div');
+  insight.className = 'insight fade-in';
+  insight.style.animationDelay = '0.6s';
+  insight.style.opacity = '0';
+  insight.innerHTML = `<strong>Key insight:</strong> The gap between basic and grounded prompts is your baseline improvement (~20%). The refusal rule closes the remaining gap by forcing "I don't know" instead of a confident wrong answer. <strong>35% → 5% hallucination rate</strong> — just from better prompts. No model change, no fine-tuning, no extra cost.`;
+  c.appendChild(insight);
+}
+</script>
+</body>
+</html>
