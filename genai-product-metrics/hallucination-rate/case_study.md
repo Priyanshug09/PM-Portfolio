@@ -471,7 +471,3 @@ python evaluator.py --break-tests
 Or open the live demo — no setup required:  
 👉 https://priyanshug09.github.io/PM-Portfolio/genai-product-metrics/hallucination-rate/
 
----
-
-*Built by Priyanshug09 as part of a public learning series on building AI systems from first principles.*  
-*Learning loop: Concept → Build → Break → Fix → Business Impact → GitHub → Case Study → Publish*
