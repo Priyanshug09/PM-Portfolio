@@ -1,20 +1,47 @@
-# Hi, I'm Priyanshu 👋
+# Returns Guardrail Simulator v3
 
-I learn AI PM concepts by building, breaking, and fixing things — then writing about what I find.
+A tiny Product Management + AI systems project that demonstrates how **guardrails** protect an AI return/refund assistant from triggering the wrong workflow.
 
-Every concept I study becomes a tiny project. Every project gets broken intentionally. Every break teaches something a textbook won't.
+## v3 Fix
 
-## What I work on
+Added support for **return intent**.
 
-- 🔬 **Evals** — building eval frameworks, measuring hallucination rate, RAGAS scoring
-- 🧠 **RAG systems** — chunking strategies, vector stores, retrieval quality
-- 🤖 **LLM behaviour** — prompt engineering, system vs user roles, temperature effects
-- 📊 **AI product metrics** — task completion rate, cost per query, faithfulness scores
-- 🔌 **MCP + APIs** — Anthropic API, tool use, agent design
-- 💼 **AI product thinking** — PRDs for AI features, build vs buy decisions, model selection
+Example:
 
-## How I learn
-
+```text
+Mobile is broken I want to return
 ```
-Concept → Explain simply → Build tiny project → Break it → Fix it → Business impact → Push → Write
+
+Now detects:
+
+```text
+Issue type = damaged_item
+Preferred resolution = return_pickup
 ```
+
+Also fixed the Streamlit dataframe warning by converting mixed table values to strings.
+
+## Product Goal
+
+Prevent wrong refund or replacement workflows by adding decision checkpoints before the assistant triggers any backend action.
+
+```text
+User complaint
+→ Intent extraction
+→ Policy eligibility
+→ Evidence check
+→ Risk check
+→ Valid option generation
+→ Final confirmation requirement
+```
+
+## How to Run
+
+```bash
+python3 -m pip install -r requirements.txt
+python3 -m streamlit run app.py
+```
+
+## Portfolio One-Liner
+
+Built a rule-based AI guardrail simulator for an e-commerce returns assistant to prevent wrong refund/replacement workflows using intent confirmation, policy checks, evidence checks, risk routing, return intent handling, and final confirmation.
