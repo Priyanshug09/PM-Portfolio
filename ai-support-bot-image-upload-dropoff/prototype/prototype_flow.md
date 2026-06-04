@@ -1,5 +1,9 @@
 # AI Support Bot Prototype Flow
 
+## Live Prototype
+
+[View Lovable Prototype](https://assist-aha-moments.lovable.app/)
+
 ## Bad Flow
 
 1. User says: "My item arrived damaged."
