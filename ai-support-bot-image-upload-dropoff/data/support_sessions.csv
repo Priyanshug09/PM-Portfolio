@@ -1,0 +1,6 @@
+session_id,issue_type,final_status
+S001,damaged_item,resolved_by_bot
+S002,damaged_item,abandoned
+S003,damaged_item,abandoned
+S004,damaged_item,escalated_to_agent
+S005,wrong_item,resolved_by_bot
