@@ -1,7 +1,6 @@
 # AI Refund Assistant — Reducing Human Support Dependency in E-commerce
 
 > **Portfolio Case Study** | AI Product Thinking Lab  
-> **Author:** [Your Name]  
 > **Role:** Aspiring AI Product Manager  
 > **Learning Framework:** Concept → Build → Break → Fix → Business Impact → GitHub → Case Study
 
